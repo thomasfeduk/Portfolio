@@ -1,5 +1,6 @@
 # Portfolio
 
+- [API Endpoint Protection System](https://fraudchallenge.thomasfeduk.com) (Demo)
 - [AWS Sigv4 Implementation in Python, Javascript & Postman](#aws-sigv4-implementation-in-python-javascript--postman--gplv3) (GPLv3)
 - [Kinesis-SLR](#kinesis-slr-gplv3) (GPLv3)
 - [Data Models/DTO and data validation methodology](#data-modelsdto-and-data-validation-methodology)
@@ -23,16 +24,16 @@ You can see the extensive permutations and complexities that must be accounted f
 - https://github.com/thomasfeduk/Kinesis-SLR/blob/master/config-kinesis_scraper.yaml
 
 ### Data Models/DTO and data validation methodology
-Utilizing DTOs/structured objects for data validation, sanitization and related mutations is a key aspect I adopt into nearly all of my work. I began working with dataclass and pydantic but a few years ago I ended up writing my own custom validation and DTO module I call PropRules (short for property rules, soon to be released as a pip package) which drastically simplifies the amount of code necessary when specifying validation conditions.
+Utilizing DTOs/structured objects for data validation, sanitization and related mutations is a key aspect I adopt into nearly all of my work. I began working with dataclass and pydantic but a few years ago I ended up writing my own custom validation and DTO module I call [PropRules](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/includes/common.py#L166) (short for Property Rules, soon to be released as a pip package) which drastically simplifies the amount of code necessary when specifying validation conditions.
 
-From my Boto3GetRecordsResponse class:
+Usage of PropRules class within my Boto3GetRecordsResponse class:
  - https://github.com/thomasfeduk/Kinesis-SLR/blob/master/includes/kinesis_client.py#L264
 
 ### Custom collections, abstract classes, @property and magic method overwriting
 An example of a custom collections class with magic method handling and associated restricted class:
 - https://github.com/thomasfeduk/Kinesis-SLR/blob/master/includes/common.py#L105
 
-Usage of primary abstract class which has a shared base DTO for the base AWS response model and is extended upon for the Input and Output specific response:
+Usage of primary abstract class which has a shared base DTO for the [base AWS response model](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/includes/kinesis_client.py#L18) and is extended upon for the [Input](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/includes/kinesis_client.py#L82) and [Output](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/includes/kinesis_client.py#L123) specific response:
 - https://github.com/thomasfeduk/Kinesis-SLR/blob/master/includes/kinesis_client.py#L18
 
 ### Unit testing and testing methodology
@@ -49,6 +50,6 @@ It tests the following:
 - That the iterator is called exactly a set number of times
 - That each call has the expected inputs and outputs depending on the mock generator configuration
 
-Regarding my PropRules DTO/validator module mentioned above. Because this is a module which provided tooling for developers, I came up with a method for building custom dynamic classes on a per-test-level which allows for testing classes with differing constructor conditions. It also demonstraights extensive positive/negative testing, exception handlin and ensuring that not only the correct exception is raised but that it pertains to the expected argument/message:
+Regarding my PropRules DTO/validator module mentioned above: Because this is a module which provided tooling for developers, I came up with a method for building custom dynamic classes on a per-test-level which allows for testing classes with differing constructor conditions. It also demonstrates extensive positive/negative testing, exception handling and ensuring that not only the correct exception is raised but that it pertains to the expected argument/message:
 
  - https://github.com/thomasfeduk/Kinesis-SLR/blob/master/tests/test_common_proprules.py#L1014
