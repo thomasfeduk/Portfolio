@@ -1,11 +1,15 @@
 # Portfolio
 
-- [API Endpoint Protection System](https://fraudchallenge.thomasfeduk.com) (Demo)
+- [API Endpoint Protection System](#api-endpoint-protection-system) (Demo)
 - [AWS Sigv4 Implementation in Python, Javascript & Postman](#aws-sigv4-implementation-in-python-javascript--postman--gplv3) (GPLv3)
 - [Kinesis-SLR](#kinesis-slr-gplv3) (GPLv3)
 - [Data Models/DTO and data validation methodology](#data-modelsdto-and-data-validation-methodology)
-- [Custom collections, abstract classes, @property and magic method overwritin](#custom-collections-abstract-classes-property-and-magic-method-overwriting)
+- [Custom collections, abstract classes, @property and magic method overwriting](#custom-collections-abstract-classes-property-and-magic-method-overwriting)
 - [Unit testing and testing methodology](#unit-testing-and-testing-methodology)
+
+### API endpoint Protection System
+A system my co-founder and I designed to restrict API endpoint communication to only approved company-issued clients via single-use generated ephemeral keys for each API call, with re-play attack protection.
+ - https://fraudchallenge.thomasfeduk.com
 
 ### AWS Sigv4 Implementation in Python, Javascript & Postman  (GPLv3)
 Below is an entirely-from-scratch AWS Sigv4 implementation I wrote first in Python, which I then ported to Javascript so I could execute AWS Lambdas, publish Kinesis messages and facilitate literally any other AWS service directly from Postman’s pre-flight scripts. Released under GPLv3
@@ -26,8 +30,7 @@ You can see the extensive permutations and complexities that must be accounted f
 ### Data Models/DTO and data validation methodology
 Utilizing DTOs/structured objects for data validation, sanitization and related mutations is a key aspect I adopt into nearly all of my work. I began working with dataclass and pydantic but a few years ago I ended up writing my own custom validation and DTO module I call [PropRules](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/includes/common.py#L166) (short for Property Rules, soon to be released as a pip package) which drastically simplifies the amount of code necessary when specifying validation conditions.
 
-Usage of PropRules class within my Boto3GetRecordsResponse class:
- - https://github.com/thomasfeduk/Kinesis-SLR/blob/master/includes/kinesis_client.py#L264
+- Example usage of PropRules class within my [Boto3GetRecordsResponse](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/includes/kinesis_client.py#L270) and [GetRecordsIteration](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/includes/kinesis_client.py#L31) classes.
 
 ### Custom collections, abstract classes, @property and magic method overwriting
 An example of a custom collections class with magic method handling and associated restricted class:
