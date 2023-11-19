@@ -41,8 +41,12 @@ For mission critical systems especially, I make it a key point to ensure both po
 
 Additionally, not only is code coverage important, but also that tests are written to cover the different logical branching patterns for the various conditional permutations. To cover many of these situations I make extensive use of generators fed into custom mocks as needed.
 
-Below is an excellent example of a test for a multi-invocation call for a custom iterator I wrote:
-https://github.com/thomasfeduk/Kinesis-SLR/blob/master/tests/test_kinesis_client.py#L1016
+Below is an excellent example of a test for a multi-invocation call for a custom iterator ([RecordsCollection](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/includes/kinesis_client.py#L245), [RestrictedCollection](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/includes/common.py#L148), [Collection](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/includes/common.py#L122)) I wrote:
+- [Seeding the generator](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/tests/test_kinesis_client.py#L1021)
+- [Setting the expected state of each iteration](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/tests/test_kinesis_client.py#L1034)
+- [Dynamically iterating through each expected iteration state within the _get_records() iterator mock](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/tests/test_kinesis_client.py#L1048)
+  - [Asserting each state against the associated expected state](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/tests/test_kinesis_client.py#L1057)
+- Separate from the per-iteration state checking above, [asserting exactly 3 iterations occurred](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/tests/test_kinesis_client.py#L1093) when [manually triggering the mocked iterator](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/tests/test_kinesis_client.py#L1082). This ensures app logic iterates exactly the expected number of occurrences given the input provided by the generator according to the [config file conditions](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/tests/test_kinesis_client.py#L1039) and that iteration stops short of the number of iterable results returned by the generator as we want it to [stop when 25 records are reached](https://github.com/thomasfeduk/Kinesis-SLR/blob/master/tests/test_kinesis_client.py#L1040), regardless of the number of get_records() called they are spanned across.
 
 It tests the following:
 - Simulates records being fed from a series of Kinesis get_records() responses
@@ -52,4 +56,4 @@ It tests the following:
 
 Regarding my PropRules DTO/validator module mentioned above: Because this is a module which provided tooling for developers, I came up with a method for building custom dynamic classes on a per-test-level which allows for testing classes with differing constructor conditions. It also demonstrates extensive positive/negative testing, exception handling and ensuring that not only the correct exception is raised but that it pertains to the expected argument/message:
 
- - https://github.com/thomasfeduk/Kinesis-SLR/blob/master/tests/test_common_proprules.py#L1014
+ - https://github.com/thomasfeduk/Kinesis-SLR/blob/master/tests/test_common_proprules.py#L1015
