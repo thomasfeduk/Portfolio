@@ -1,11 +1,17 @@
 # Portfolio
 
+- [Published White papers](#published-white-papers)
 - [API Endpoint Protection System](#api-endpoint-protection-system) (Demo)
 - [AWS Sigv4 Implementation in Python, Javascript & Postman](#aws-sigv4-implementation-in-python-javascript--postman--gplv3) (GPLv3)
 - [Kinesis-SLR](#kinesis-slr-gplv3) (GPLv3)
 - [Data Models/DTO and data validation methodology](#data-modelsdto-and-data-validation-methodology)
 - [Custom collections, abstract classes, @property and magic method overwriting](#custom-collections-abstract-classes-property-and-magic-method-overwriting)
 - [Unit testing and testing methodology](#unit-testing-and-testing-methodology)
+
+### Published White papers
+- [AWS Kinesis & Lambda Best Practices](https://github.com/thomasfeduk/Portfolio/blob/main/Whitepaper%20Kinesis%20%26%20Lambda%20Best%20Practices%20-%20Thomas%20Feduk%2C%20Jr.pdf)
+  - Implementing eventual consistency and disaster recovery methodologies in event-driven distributed systems with Kinesis and Lambdas.
+  - Ensuring exactly-once-processing with or without idempotency with reliable error recovery, re-try handling and DLQs. 
 
 ### API endpoint Protection System
 A system my co-founder and I designed to restrict API endpoint communication to only approved company-issued clients via single-use generated ephemeral keys for each API call, with re-play attack protection.
